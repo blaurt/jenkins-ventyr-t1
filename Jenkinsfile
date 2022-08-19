@@ -1,15 +1,18 @@
 pipeline {
-    agent any
+    agent {
+        docker { image 'node:16.13.1-alpine' }
+    }
 
     stages {
         stage('Build') {
             steps {
-                echo 'Building..3'
+                sh 'npm run build'
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing..3'
+                sh 'npm run test'
+                sh 'npm run test:e2e'
             }
         }
         stage('Deploy') {
